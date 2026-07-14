@@ -3,9 +3,9 @@ import { NewsletterForm } from "@/components/ui/NewsletterForm";
 
 const links = [
   { label: "Soluções", href: "/solucoes" },
-  { label: "Diferenciais", href: "/#diferenciais" },
-  { label: "Blog", href: "/#blog" },
-  { label: "Contato", href: "/#contato" },
+  { label: "Diferenciais", href: "/diferenciais" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contato", href: "/contato" },
 ];
 
 export function Footer() {

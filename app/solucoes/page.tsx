@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
-import { SolutionsHeroSection } from "@/components/sections/SolutionsHeroSection";
+import { PageHeroSection } from "@/components/sections/PageHeroSection";
 import { ProcessingSection } from "@/components/sections/ProcessingSection";
 import { EthyleneOxideSection } from "@/components/sections/EthyleneOxideSection";
 import { SteamSection } from "@/components/sections/SteamSection";
@@ -26,7 +26,7 @@ export default function SolucoesPage() {
     <>
       <Header />
       <main className="flex-1">
-        <SolutionsHeroSection />
+        <PageHeroSection eyebrow="Conheça" title="Nossas" highlight="soluções" />
         <ProcessingSection />
         <EthyleneOxideSection />
         <SteamSection />

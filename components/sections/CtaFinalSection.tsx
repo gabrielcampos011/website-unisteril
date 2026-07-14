@@ -15,7 +15,7 @@ export function CtaFinalSection() {
             Entre em contato e descubra como a Unistéril pode cuidar da
             esterilização dos seus materiais com segurança e eficiência.
           </p>
-          <Button variant="primary" size="lg" className="flex items-center gap-2">
+          <Button variant="primary" size="lg" href="/contato" className="flex items-center gap-2">
             <MessageCircle size={20} />
             Clique aqui
           </Button>

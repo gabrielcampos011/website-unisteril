@@ -1,4 +1,10 @@
-export function SolutionsHeroSection() {
+interface PageHeroSectionProps {
+  eyebrow: string;
+  title: string;
+  highlight: string;
+}
+
+export function PageHeroSection({ eyebrow, title, highlight }: PageHeroSectionProps) {
   return (
     <section className="relative flex items-center justify-center bg-dark-green overflow-hidden py-28 md:py-36">
       <div className="absolute inset-0 opacity-10">
@@ -11,13 +17,13 @@ export function SolutionsHeroSection() {
           className="text-light-green text-lg md:text-xl font-normal mb-3 tracking-wide animate-fade-up"
           style={{ animationDelay: "0ms" }}
         >
-          Conheça
+          {eyebrow}
         </p>
         <h1
           className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight animate-fade-up"
           style={{ animationDelay: "200ms" }}
         >
-          Nossas <span className="text-brand-green">soluções</span>
+          {title} <span className="text-brand-green">{highlight}</span>
         </h1>
       </div>
     </section>
