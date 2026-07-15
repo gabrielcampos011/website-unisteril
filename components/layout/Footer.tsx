@@ -2,6 +2,7 @@ import { Mail, Phone, Globe } from "lucide-react";
 import { NewsletterForm } from "@/components/ui/NewsletterForm";
 
 const links = [
+  { label: "Quem Somos", href: "/quem-somos" },
   { label: "Soluções", href: "/solucoes" },
   { label: "Diferenciais", href: "/diferenciais" },
   { label: "Blog", href: "/blog" },

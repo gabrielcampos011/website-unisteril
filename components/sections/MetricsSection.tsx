@@ -14,7 +14,7 @@ const metrics = [
 function useCounter(target: number, duration: number, active: boolean) {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    if (!active || target === 0) { setCount(target); return; }
+    if (!active) return;
     const start = performance.now();
     let raf: number;
     const tick = (now: number) => {

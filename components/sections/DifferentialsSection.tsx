@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import {
   ShieldCheck, Award, ScanLine, Truck, Cpu, Leaf,
   ArrowRight, ChevronLeft, ChevronRight,
@@ -16,27 +16,29 @@ const items = [
   { icon: Leaf,        title: "Sustentabilidade",                   description: "Governança ambiental, social e corporativa" },
 ];
 
+const MOBILE_QUERY = "(max-width: 767px)";
+
+function subscribeToMediaQuery(callback: () => void) {
+  const mq = window.matchMedia(MOBILE_QUERY);
+  mq.addEventListener("change", callback);
+  return () => mq.removeEventListener("change", callback);
+}
+
 function useVisibleCount() {
-  const [visible, setVisible] = useState(3);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 767px)");
-    setVisible(mq.matches ? 1 : 3);
-    const handler = (e: MediaQueryListEvent) => setVisible(e.matches ? 1 : 3);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return visible;
+  return useSyncExternalStore(
+    subscribeToMediaQuery,
+    () => (window.matchMedia(MOBILE_QUERY).matches ? 1 : 3),
+    () => 3
+  );
 }
 
 export function DifferentialsSection() {
-  const [index, setIndex] = useState(0);
+  const [rawIndex, setRawIndex] = useState(0);
   const visible = useVisibleCount();
   const maxIndex = items.length - visible;
 
   // Garante que o índice não ultrapasse o novo maxIndex ao redimensionar
-  useEffect(() => {
-    setIndex((i) => Math.min(i, maxIndex));
-  }, [maxIndex]);
+  const index = Math.min(rawIndex, maxIndex);
 
   const cardWidth = `${100 / visible}%`;
 
@@ -76,7 +78,7 @@ export function DifferentialsSection() {
 
           {/* Prev */}
           <button
-            onClick={() => setIndex((i) => Math.max(0, i - 1))}
+            onClick={() => setRawIndex(Math.max(0, index - 1))}
             disabled={index === 0}
             aria-label="Anterior"
             className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow border border-light-green flex items-center justify-center disabled:opacity-30 hover:border-brand-green transition-colors"
@@ -86,7 +88,7 @@ export function DifferentialsSection() {
 
           {/* Next */}
           <button
-            onClick={() => setIndex((i) => Math.min(maxIndex, i + 1))}
+            onClick={() => setRawIndex(Math.min(maxIndex, index + 1))}
             disabled={index === maxIndex}
             aria-label="Próximo"
             className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow border border-light-green flex items-center justify-center disabled:opacity-30 hover:border-brand-green transition-colors"
@@ -100,7 +102,7 @@ export function DifferentialsSection() {
           {Array.from({ length: maxIndex + 1 }).map((_, i) => (
             <button
               key={i}
-              onClick={() => setIndex(i)}
+              onClick={() => setRawIndex(i)}
               aria-label={`Ir para posição ${i + 1}`}
               className={`rounded-full transition-all duration-300 ${
                 i === index
